@@ -1,0 +1,60 @@
+.grocery-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.grocery-item.checked {
+  background-color: #f8f9fa;
+  opacity: 0.7;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.item-name {
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.grocery-item.checked .item-name {
+  text-decoration: line-through;
+  color: #95a5a6;
+}
+
+.item-quantity {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.delete-btn {
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+}

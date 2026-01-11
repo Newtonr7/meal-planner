@@ -1,0 +1,128 @@
+.meal-plan-day {
+  min-height: 80px;
+  padding: 0.5rem;
+  border-left: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meal-assigned {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  padding: 0.5rem;
+  background-color: #e8f4f8;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.meal-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-decoration: none;
+  text-align: center;
+}
+
+.meal-name:hover {
+  color: #3498db;
+}
+
+.meal-time {
+  font-size: 0.75rem;
+  color: #7f8c8d;
+}
+
+.remove-meal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-meal-btn {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px dashed #bdc3c7;
+  border-radius: 4px;
+  color: #7f8c8d;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.add-meal-btn:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.recipe-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.recipe-picker {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.recipe-picker h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.recipe-picker ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.recipe-picker li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ecf0f1;
+  cursor: pointer;
+}
+
+.recipe-picker li:hover {
+  background-color: #f8f9fa;
+}
+
+.recipe-picker li.no-recipes {
+  color: #7f8c8d;
+  cursor: default;
+}
+
+.recipe-picker button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,92 @@
+.meal-planner {
+  padding: 2rem;
+}
+
+.planner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.planner-header h1 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+.week-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.week-navigation button {
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.week-navigation button:hover {
+  background-color: #2980b9;
+}
+
+.current-week {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.planner-grid {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.planner-header-row,
+.planner-row {
+  display: grid;
+  grid-template-columns: 100px repeat(7, 1fr);
+}
+
+.planner-header-row {
+  background-color: #2c3e50;
+  color: white;
+}
+
+.day-header {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  border-left: 1px solid #34495e;
+}
+
+.meal-type-label {
+  padding: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background-color: #ecf0f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planner-row {
+  border-top: 1px solid #ddd;
+}
+
+@media (max-width: 900px) {
+  .planner-grid {
+    overflow-x: auto;
+  }
+
+  .planner-header-row,
+  .planner-row {
+    min-width: 800px;
+  }
+}
