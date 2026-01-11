@@ -1,74 +1,144 @@
+/* Page Container */
 .grocery-list-page {
+  min-height: calc(100vh - 60px);
   padding: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.grocery-header {
+  background-color: #e8e4df;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(139, 119, 101, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 119, 101, 0.08) 0%, transparent 50%);
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  justify-content: center;
 }
 
-.grocery-header h1 {
-  color: #2c3e50;
-  margin: 0;
+/* Notepad Container */
+.notepad {
+  width: 100%;
+  max-width: 500px;
+  background: #fffef9;
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  padding-bottom: 2rem;
 }
 
+/* Red top binding */
+.notepad::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, #c62828 0%, #b71c1c 100%);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Spiral binding holes */
+.notepad::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  right: 20px;
+  height: 16px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 30px,
+    #444 30px,
+    #444 34px,
+    transparent 34px,
+    transparent 40px
+  );
+  background-size: 40px 16px;
+}
+
+/* Header Section */
+.notepad-header {
+  padding: 60px 2rem 1rem;
+  border-bottom: 2px solid #e0d6c8;
+}
+
+.notepad-title {
+  font-family: 'Georgia', serif;
+  font-size: 1.75rem;
+  color: #5d4037;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+/* Week Navigation */
 .week-navigation {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .week-navigation button {
-  padding: 0.5rem 1rem;
-  background-color: #3498db;
-  color: white;
-  border: none;
+  padding: 0.4rem 0.75rem;
+  background: transparent;
+  border: 1px solid #8d6e63;
   border-radius: 4px;
+  color: #5d4037;
+  font-family: 'Georgia', serif;
+  font-size: 0.85rem;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .week-navigation button:hover {
-  background-color: #2980b9;
+  background: #8d6e63;
+  color: white;
 }
 
 .current-week {
-  font-weight: 600;
-  color: #2c3e50;
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  color: #5d4037;
 }
 
-.grocery-actions {
-  margin-bottom: 1.5rem;
+/* Actions */
+.notepad-actions {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .generate-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: #27ae60;
+  padding: 0.6rem 1.25rem;
+  background: #5d4037;
   color: white;
   border: none;
   border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 1rem;
+  transition: background 0.2s;
 }
 
 .generate-btn:hover {
-  background-color: #219a52;
+  background: #4e342e;
 }
 
+/* Add Item Form */
 .add-item-form {
+  padding: 0 2rem 1rem;
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .add-item-form input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d7ccc8;
   border-radius: 4px;
-  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  background: #fff;
 }
 
 .add-item-form input:first-child {
@@ -79,27 +149,104 @@
   flex: 1;
 }
 
+.add-item-form input:focus {
+  outline: none;
+  border-color: #8d6e63;
+}
+
 .add-item-form button {
-  padding: 0.75rem 1rem;
-  background-color: #3498db;
+  padding: 0.6rem 1rem;
+  background: #8d6e63;
   color: white;
   border: none;
   border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .add-item-form button:hover {
-  background-color: #2980b9;
+  background: #6d4c41;
 }
 
+/* Grocery List Items */
 .grocery-items {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Lined paper effect */
+.list-content {
+  padding: 0 1.5rem;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #e0d6c8 31px,
+    #e0d6c8 32px
+  );
+  background-position: 0 0;
+  min-height: 200px;
+}
+
+/* Red margin line */
+.list-content::before {
+  content: '';
+  position: absolute;
+  left: 60px;
+  top: 160px;
+  bottom: 2rem;
+  width: 1px;
+  background: #ffcdd2;
+}
+
 .empty-list {
   text-align: center;
-  color: #7f8c8d;
+  color: #8d6e63;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  padding: 2rem 1rem;
+  line-height: 32px;
+}
+
+.loading {
+  text-align: center;
+  color: #8d6e63;
+  font-family: 'Georgia', serif;
+  font-style: italic;
   padding: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .grocery-list-page {
+    padding: 1rem;
+  }
+
+  .notepad-header {
+    padding: 60px 1rem 1rem;
+  }
+
+  .notepad-actions,
+  .add-item-form {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .add-item-form {
+    flex-wrap: wrap;
+  }
+
+  .add-item-form input:first-child {
+    flex: 1 1 100%;
+  }
+
+  .add-item-form input:nth-child(2) {
+    flex: 1;
+  }
+
+  .list-content::before {
+    left: 40px;
+  }
 }

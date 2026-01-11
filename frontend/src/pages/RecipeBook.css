@@ -5,7 +5,11 @@
   align-items: center;
   min-height: calc(100vh - 60px);
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: #e8e4df;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(139, 119, 101, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 119, 101, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(139, 119, 101, 0.05) 0%, transparent 40%);
 }
 
 .book {

@@ -98,55 +98,59 @@ function GroceryList() {
 
   return (
     <div className="grocery-list-page">
-      <div className="grocery-header">
-        <h1>Grocery List</h1>
-        <div className="week-navigation">
-          <button onClick={() => changeWeek(-1)}>Previous Week</button>
-          <span className="current-week">Week of {weekStart}</span>
-          <button onClick={() => changeWeek(1)}>Next Week</button>
+      <div className="notepad">
+        <div className="notepad-header">
+          <h1 className="notepad-title">Grocery List</h1>
+          <div className="week-navigation">
+            <button onClick={() => changeWeek(-1)}>Prev</button>
+            <span className="current-week">Week of {weekStart}</span>
+            <button onClick={() => changeWeek(1)}>Next</button>
+          </div>
+        </div>
+
+        <div className="notepad-actions">
+          <button onClick={generateList} className="generate-btn">
+            Generate from Meal Plan
+          </button>
+        </div>
+
+        <form onSubmit={addItem} className="add-item-form">
+          <input
+            type="text"
+            placeholder="Item name"
+            value={newItem.name}
+            onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Qty"
+            value={newItem.quantity}
+            onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
+          />
+          <button type="submit">Add</button>
+        </form>
+
+        <div className="list-content">
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <ul className="grocery-items">
+              {items.length === 0 ? (
+                <p className="empty-list">No items yet.<br />Generate from meal plan or add items above.</p>
+              ) : (
+                items.map((item) => (
+                  <GroceryItem
+                    key={item.id}
+                    item={item}
+                    onToggle={toggleItem}
+                    onDelete={deleteItem}
+                  />
+                ))
+              )}
+            </ul>
+          )}
         </div>
       </div>
-
-      <div className="grocery-actions">
-        <button onClick={generateList} className="generate-btn">
-          Generate from Meal Plan
-        </button>
-      </div>
-
-      <form onSubmit={addItem} className="add-item-form">
-        <input
-          type="text"
-          placeholder="Item name"
-          value={newItem.name}
-          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Quantity"
-          value={newItem.quantity}
-          onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
-        />
-        <button type="submit">Add Item</button>
-      </form>
-
-      {loading ? (
-        <div className="loading">Loading grocery list...</div>
-      ) : (
-        <ul className="grocery-items">
-          {items.length === 0 ? (
-            <p className="empty-list">No items yet. Generate from meal plan or add items manually.</p>
-          ) : (
-            items.map((item) => (
-              <GroceryItem
-                key={item.id}
-                item={item}
-                onToggle={toggleItem}
-                onDelete={deleteItem}
-              />
-            ))
-          )}
-        </ul>
-      )}
     </div>
   )
 }
