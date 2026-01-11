@@ -10,6 +10,14 @@ import './App.css'
 function App() {
   return (
     <div className="app">
+      {/* Floating food sprites */}
+      <div className="food-sprites">
+        <span className="food-sprite">🍕</span>
+        <span className="food-sprite">🍔</span>
+        <span className="food-sprite">🌮</span>
+        <span className="food-sprite">🍣</span>
+        <span className="food-sprite">🍩</span>
+      </div>
       <Navbar />
       <main className="main-content">
         <Routes>

@@ -77,11 +77,12 @@ function AddRecipe() {
 
   return (
     <div className="add-recipe">
-      <h1>Add New Recipe</h1>
+      <div className="add-recipe-form">
+        <h1>Add New Recipe</h1>
 
-      {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Recipe Name *</label>
           <input
@@ -224,7 +225,8 @@ function AddRecipe() {
         </div>
 
         <button type="submit" className="submit-btn">Create Recipe</button>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }

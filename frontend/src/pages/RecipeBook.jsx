@@ -7,6 +7,7 @@ function RecipeBook() {
   const [recipes, setRecipes] = useState([])
   const [allRecipes, setAllRecipes] = useState([])
   const [loading, setLoading] = useState(true)
+  const [bookOpen, setBookOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(0) // 0 = index, 1+ = recipes
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const [filters, setFilters] = useState({
@@ -87,6 +88,16 @@ function RecipeBook() {
     })
   }
 
+  const openBook = () => {
+    setBookOpen(true)
+  }
+
+  const closeBook = () => {
+    setBookOpen(false)
+    setCurrentPage(0)
+    setSelectedRecipe(null)
+  }
+
   const goToRecipe = async (recipe, index) => {
     await fetchRecipeDetails(recipe.id)
     setCurrentPage(index + 1)
@@ -118,20 +129,45 @@ function RecipeBook() {
   if (loading) {
     return (
       <div className="book-container">
-        <div className="book">
-          <div className="book-page">
-            <div className="page-content loading-page">
-              Loading recipes...
+        <div className="loading-screen">
+          <div className="loading-book">📚</div>
+          <p className="loading-text">Opening Recipe Book...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Closed book view
+  if (!bookOpen) {
+    return (
+      <div className="book-container">
+        <div className="closed-book" onClick={openBook}>
+          <div className="book-spine-closed">
+            <span className="spine-text">RECIPES</span>
+          </div>
+          <div className="book-cover">
+            <div className="cover-decoration top-left"></div>
+            <div className="cover-decoration top-right"></div>
+            <div className="cover-decoration bottom-left"></div>
+            <div className="cover-decoration bottom-right"></div>
+            <div className="cover-content">
+              <div className="cover-emblem">📖</div>
+              <h1 className="cover-title">Recipe Book</h1>
+              <p className="cover-subtitle">A Collection of Fine Recipes</p>
+              <div className="cover-divider"></div>
+              <p className="recipe-count-cover">{allRecipes.length} Recipes</p>
             </div>
+            <p className="click-hint">Click to Open</p>
           </div>
         </div>
       </div>
     )
   }
 
+  // Open book view
   return (
     <div className="book-container">
-      <div className="book">
+      <div className="open-book">
         {/* Book Spine */}
         <div className="book-spine">
           <span>Recipe Book</span>
@@ -251,17 +287,14 @@ function RecipeBook() {
             <div className="page-content intro-page">
               <div className="book-illustration">
                 <div className="illustration-content">
-                  <div className="chef-hat"></div>
+                  <div className="illustration-icon">🍳</div>
+                  <div className="recipe-count">{allRecipes.length}</div>
+                  <p className="recipe-count-label">Recipes</p>
                   <p className="intro-text">
-                    Welcome to your personal recipe collection.
-                    Browse through the index to find your favorite dishes,
-                    or use the filters to discover something new.
+                    Your personal recipe collection.
+                    Browse through the index or use the filters to discover something new.
                   </p>
-                  <p className="recipe-count">{allRecipes.length} recipes</p>
                 </div>
-              </div>
-              <div className="page-footer">
-                <span className="page-number"></span>
               </div>
             </div>
           ) : (
@@ -301,11 +334,15 @@ function RecipeBook() {
             onClick={prevPage}
             disabled={currentPage === 0}
           >
-            Previous
+            ◀ Previous
           </button>
 
           <button className="nav-btn index-btn" onClick={goToIndex}>
             Index
+          </button>
+
+          <button className="nav-btn close-btn" onClick={closeBook}>
+            Close Book
           </button>
 
           <button
@@ -313,7 +350,7 @@ function RecipeBook() {
             onClick={nextPage}
             disabled={currentPage === 0 || currentPage >= recipes.length}
           >
-            Next
+            Next ▶
           </button>
         </div>
       </div>

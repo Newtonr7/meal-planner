@@ -5,7 +5,9 @@ import './MealPlanner.css'
 const API_URL = 'http://localhost:3000/api'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAY_EMOJIS = ['🌙', '🔥', '💧', '🌿', '⚡', '🪐', '☀️']
 const MEAL_TYPES = ['breakfast', 'lunch', 'dinner']
+const MEAL_EMOJIS = { breakfast: '🌅', lunch: '☀️', dinner: '🌙' }
 
 function getWeekStart(date = new Date()) {
   const d = new Date(date)
@@ -57,46 +59,98 @@ function MealPlanner() {
     setWeekStart(current.toISOString().split('T')[0])
   }
 
+  const filledSlots = mealPlan.length
+  const totalSlots = DAYS.length * MEAL_TYPES.length
+
   return (
     <div className="meal-planner">
-      <div className="planner-header">
-        <h1>Meal Planner</h1>
-        <div className="week-navigation">
-          <button onClick={() => changeWeek(-1)}>Previous Week</button>
-          <span className="current-week">Week of {weekStart}</span>
-          <button onClick={() => changeWeek(1)}>Next Week</button>
-        </div>
+      {/* Floating food decorations */}
+      <div className="planner-decorations">
+        <span className="decoration" style={{ top: '10%', left: '5%' }}>🥐</span>
+        <span className="decoration" style={{ top: '30%', right: '3%' }}>🍳</span>
+        <span className="decoration" style={{ bottom: '20%', left: '8%' }}>🥗</span>
+        <span className="decoration" style={{ bottom: '10%', right: '5%' }}>🍝</span>
       </div>
 
-      {loading ? (
-        <div className="loading">Loading meal plan...</div>
-      ) : (
-        <div className="planner-grid">
-          <div className="planner-header-row">
-            <div className="meal-type-label"></div>
-            {DAYS.map((day) => (
-              <div key={day} className="day-header">{day}</div>
-            ))}
+      <div className="planner-container">
+        {/* Header */}
+        <div className="planner-header">
+          <div className="header-left">
+            <h1 className="planner-title">
+              <span className="title-icon">📅</span>
+              Meal Quest Planner
+            </h1>
+            <div className="progress-display">
+              <span className="progress-label">MEALS PLANNED:</span>
+              <div className="progress-bar">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${(filledSlots / totalSlots) * 100}%` }}
+                ></div>
+              </div>
+              <span className="progress-value">{filledSlots}/{totalSlots}</span>
+            </div>
           </div>
 
-          {MEAL_TYPES.map((mealType) => (
-            <div key={mealType} className="planner-row">
-              <div className="meal-type-label">{mealType}</div>
-              {DAYS.map((day) => (
-                <MealPlanDay
-                  key={`${day}-${mealType}`}
-                  day={day}
-                  mealType={mealType}
-                  meal={getMealForSlot(day, mealType)}
-                  onRemove={handleRemoveMeal}
-                  weekStart={weekStart}
-                  onMealAdded={fetchMealPlan}
-                />
+          <div className="week-navigation">
+            <button onClick={() => changeWeek(-1)} className="nav-btn">
+              <span>◀</span> PREV
+            </button>
+            <div className="current-week">
+              <span className="week-icon">📆</span>
+              <span className="week-text">{weekStart}</span>
+            </div>
+            <button onClick={() => changeWeek(1)} className="nav-btn">
+              NEXT <span>▶</span>
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <div className="loading">
+            <span className="loading-icon">🍳</span>
+            <p>Loading meal plan...</p>
+          </div>
+        ) : (
+          <div className="calendar-board">
+            {/* Calendar Header */}
+            <div className="calendar-header">
+              <div className="calendar-corner">
+                <span>🗓️</span>
+              </div>
+              {DAYS.map((day, idx) => (
+                <div key={day} className="day-header">
+                  <span className="day-emoji">{DAY_EMOJIS[idx]}</span>
+                  <span className="day-name">{day.slice(0, 3)}</span>
+                </div>
               ))}
             </div>
-          ))}
-        </div>
-      )}
+
+            {/* Calendar Body */}
+            <div className="calendar-body">
+              {MEAL_TYPES.map((mealType) => (
+                <div key={mealType} className="calendar-row">
+                  <div className="meal-type-label">
+                    <span className="meal-emoji">{MEAL_EMOJIS[mealType]}</span>
+                    <span className="meal-name">{mealType}</span>
+                  </div>
+                  {DAYS.map((day) => (
+                    <MealPlanDay
+                      key={`${day}-${mealType}`}
+                      day={day}
+                      mealType={mealType}
+                      meal={getMealForSlot(day, mealType)}
+                      onRemove={handleRemoveMeal}
+                      weekStart={weekStart}
+                      onMealAdded={fetchMealPlan}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

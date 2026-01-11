@@ -71,7 +71,7 @@ function MealPlanDay({ day, mealType, meal, onRemove, weekStart, onMealAdded }) 
                 ))
               )}
             </ul>
-            <button onClick={() => setShowPicker(false)}>Cancel</button>
+            <button className="picker-cancel" onClick={() => setShowPicker(false)}>Cancel</button>
           </div>
         </div>
       )}
