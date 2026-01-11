@@ -148,6 +148,143 @@ app.post('/api/recipes', (req, res) => {
   );
 });
 
+// PUT /api/recipes/:id - Update existing recipe
+app.put('/api/recipes/:id', (req, res) => {
+  const { id } = req.params;
+  const {
+    name,
+    meal_type,
+    cuisine,
+    dish_type,
+    protein_type,
+    cooking_method,
+    cook_time,
+    serving_size,
+    instructions,
+    image_url,
+    ingredients
+  } = req.body;
+
+  // First check if recipe exists
+  db.get('SELECT id FROM recipes WHERE id = ?', [id], (err, recipe) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (!recipe) {
+      return res.status(404).json({ error: 'Recipe not found' });
+    }
+
+    // Build dynamic update query
+    const updates = [];
+    const params = [];
+
+    if (name !== undefined) {
+      updates.push('name = ?');
+      params.push(name);
+    }
+    if (meal_type !== undefined) {
+      updates.push('meal_type = ?');
+      params.push(meal_type);
+    }
+    if (cuisine !== undefined) {
+      updates.push('cuisine = ?');
+      params.push(cuisine);
+    }
+    if (dish_type !== undefined) {
+      updates.push('dish_type = ?');
+      params.push(dish_type);
+    }
+    if (protein_type !== undefined) {
+      updates.push('protein_type = ?');
+      params.push(protein_type);
+    }
+    if (cooking_method !== undefined) {
+      updates.push('cooking_method = ?');
+      params.push(cooking_method);
+    }
+    if (cook_time !== undefined) {
+      updates.push('cook_time = ?');
+      params.push(cook_time);
+    }
+    if (serving_size !== undefined) {
+      updates.push('serving_size = ?');
+      params.push(serving_size);
+    }
+    if (instructions !== undefined) {
+      updates.push('instructions = ?');
+      params.push(instructions);
+    }
+    if (image_url !== undefined) {
+      updates.push('image_url = ?');
+      params.push(image_url);
+    }
+
+    // Update recipe fields if any provided
+    if (updates.length > 0) {
+      params.push(id);
+      db.run(
+        `UPDATE recipes SET ${updates.join(', ')} WHERE id = ?`,
+        params,
+        function(err) {
+          if (err) {
+            return res.status(500).json({ error: err.message });
+          }
+        }
+      );
+    }
+
+    // Update ingredients if provided
+    if (ingredients !== undefined) {
+      // Delete existing ingredients
+      db.run('DELETE FROM recipe_ingredients WHERE recipe_id = ?', [id], (err) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+
+        // Insert new ingredients
+        if (ingredients.length > 0) {
+          const insertIngredient = db.prepare(
+            'INSERT INTO recipe_ingredients (recipe_id, ingredient_name, quantity) VALUES (?, ?, ?)'
+          );
+
+          ingredients.forEach((ing) => {
+            insertIngredient.run(id, ing.ingredient_name, ing.quantity);
+          });
+
+          insertIngredient.finalize();
+        }
+
+        res.json({ message: 'Recipe updated successfully' });
+      });
+    } else {
+      res.json({ message: 'Recipe updated successfully' });
+    }
+  });
+});
+
+// DELETE /api/recipes/:id - Delete recipe
+app.delete('/api/recipes/:id', (req, res) => {
+  const { id } = req.params;
+
+  // Check if recipe exists
+  db.get('SELECT id FROM recipes WHERE id = ?', [id], (err, recipe) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (!recipe) {
+      return res.status(404).json({ error: 'Recipe not found' });
+    }
+
+    // Delete recipe (ingredients will cascade delete due to foreign key)
+    db.run('DELETE FROM recipes WHERE id = ?', [id], function(err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ message: 'Recipe deleted successfully' });
+    });
+  });
+});
+
 // ============================================
 // MEAL PLAN ENDPOINTS
 // ============================================

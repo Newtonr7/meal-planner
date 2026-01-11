@@ -3,40 +3,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
-}
-
-/* Animated starfield background */
-.app::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(2px 2px at 20px 30px, var(--retro-cyan), transparent),
-    radial-gradient(2px 2px at 40px 70px, var(--retro-pink), transparent),
-    radial-gradient(2px 2px at 50px 160px, var(--retro-yellow), transparent),
-    radial-gradient(2px 2px at 90px 40px, var(--retro-green), transparent),
-    radial-gradient(2px 2px at 130px 80px, var(--retro-purple), transparent),
-    radial-gradient(2px 2px at 160px 120px, var(--retro-cyan), transparent),
-    radial-gradient(1px 1px at 180px 20px, white, transparent),
-    radial-gradient(1px 1px at 200px 150px, white, transparent),
-    radial-gradient(2px 2px at 250px 60px, var(--retro-pink), transparent),
-    radial-gradient(2px 2px at 280px 130px, var(--retro-yellow), transparent),
-    radial-gradient(1px 1px at 320px 90px, white, transparent),
-    radial-gradient(2px 2px at 350px 40px, var(--retro-green), transparent);
-  background-repeat: repeat;
-  background-size: 400px 200px;
-  animation: twinkle 4s ease-in-out infinite alternate;
-  z-index: -2;
-  opacity: 0.6;
-}
-
-@keyframes twinkle {
-  0% { opacity: 0.4; }
-  100% { opacity: 0.7; }
+  background-color: #5c5570;
 }
 
 .main-content {
@@ -45,44 +12,7 @@
   z-index: 1;
 }
 
-/* Floating food sprites that appear across all pages */
+/* Hide floating food sprites - keeping a simple clean background */
 .food-sprites {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.food-sprite {
-  position: absolute;
-  font-size: 2rem;
-  animation: float-across 20s linear infinite;
-  opacity: 0.3;
-}
-
-.food-sprite:nth-child(1) { top: 10%; left: -50px; animation-delay: 0s; animation-duration: 25s; }
-.food-sprite:nth-child(2) { top: 30%; left: -50px; animation-delay: 5s; animation-duration: 22s; }
-.food-sprite:nth-child(3) { top: 50%; left: -50px; animation-delay: 10s; animation-duration: 28s; }
-.food-sprite:nth-child(4) { top: 70%; left: -50px; animation-delay: 15s; animation-duration: 24s; }
-.food-sprite:nth-child(5) { top: 90%; left: -50px; animation-delay: 3s; animation-duration: 26s; }
-
-@keyframes float-across {
-  0% {
-    transform: translateX(-50px) translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  5% {
-    opacity: 0.4;
-  }
-  95% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateX(calc(100vw + 50px)) translateY(-30px) rotate(360deg);
-    opacity: 0;
-  }
+  display: none;
 }

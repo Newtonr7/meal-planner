@@ -5,24 +5,26 @@
 }
 
 :root {
-  /* Retro Game Color Palette */
-  --retro-cyan: #00d4ff;
-  --retro-pink: #ff6b9d;
-  --retro-yellow: #ffd93d;
-  --retro-green: #6bcb77;
-  --retro-orange: #ff8c42;
-  --retro-purple: #a855f7;
-  --retro-red: #ff4757;
+  /* Cozy Pixel Kitchen Color Palette */
+  --pixel-navy: #1e3a5f;
+  --pixel-navy-light: #2d4a6f;
+  --pixel-terracotta: #c4785a;
+  --pixel-wood: #8b6b4a;
+  --pixel-wood-dark: #5c4633;
+  --pixel-cream: #f5e6d3;
+  --pixel-gold: #d4a853;
+  --pixel-red: #c45c4a;
 
   /* Background colors */
-  --bg-dark: #0f0f23;
-  --bg-mid: #1a1a2e;
-  --bg-light: #16213e;
-  --bg-card: #252550;
+  --bg-dark: #4a4458;
+  --bg-mid: #5c5570;
+  --bg-light: #6e6880;
+  --bg-card: #f5e6d3;
 
   /* Text */
-  --text-primary: #eaeaea;
-  --text-secondary: #a0a0c0;
+  --text-primary: #3d3530;
+  --text-secondary: #6b5f55;
+  --text-light: #f5e6d3;
 
   /* Pixel border */
   --pixel-border: 4px solid;
@@ -33,7 +35,7 @@ body {
   font-family: 'Press Start 2P', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
-  background-color: var(--bg-dark);
+  background-color: #5c5570;
   color: var(--text-primary);
   image-rendering: pixelated;
 }
@@ -116,8 +118,8 @@ button {
 
 /* Pixel-style button base */
 .pixel-btn {
-  background: var(--retro-cyan);
-  color: var(--bg-dark);
+  background: var(--pixel-navy);
+  color: var(--pixel-cream);
   border: none;
   padding: 12px 24px;
   font-size: 0.7rem;
@@ -126,7 +128,7 @@ button {
   text-transform: uppercase;
   transition: transform 0.1s;
   box-shadow:
-    4px 4px 0 var(--bg-dark),
+    4px 4px 0 var(--pixel-wood-dark),
     inset -4px -4px 0 rgba(0,0,0,0.2),
     inset 4px 4px 0 rgba(255,255,255,0.2);
 }
@@ -134,7 +136,7 @@ button {
 .pixel-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow:
-    6px 6px 0 var(--bg-dark),
+    6px 6px 0 var(--pixel-wood-dark),
     inset -4px -4px 0 rgba(0,0,0,0.2),
     inset 4px 4px 0 rgba(255,255,255,0.2);
 }
@@ -142,7 +144,7 @@ button {
 .pixel-btn:active {
   transform: translate(2px, 2px);
   box-shadow:
-    2px 2px 0 var(--bg-dark),
+    2px 2px 0 var(--pixel-wood-dark),
     inset -4px -4px 0 rgba(0,0,0,0.2),
     inset 4px 4px 0 rgba(255,255,255,0.2);
 }
@@ -153,14 +155,14 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark);
+  background: var(--bg-mid);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--retro-purple);
-  border: 2px solid var(--bg-dark);
+  background: var(--pixel-wood);
+  border: 2px solid var(--bg-mid);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--retro-pink);
+  background: var(--pixel-terracotta);
 }

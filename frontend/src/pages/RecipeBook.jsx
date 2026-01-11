@@ -8,6 +8,7 @@ function RecipeBook() {
   const [allRecipes, setAllRecipes] = useState([])
   const [loading, setLoading] = useState(true)
   const [bookOpen, setBookOpen] = useState(false)
+  const [isOpening, setIsOpening] = useState(false)
   const [currentPage, setCurrentPage] = useState(0) // 0 = index, 1+ = recipes
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const [filters, setFilters] = useState({
@@ -89,7 +90,11 @@ function RecipeBook() {
   }
 
   const openBook = () => {
-    setBookOpen(true)
+    setIsOpening(true)
+    setTimeout(() => {
+      setBookOpen(true)
+      setIsOpening(false)
+    }, 650)
   }
 
   const closeBook = () => {
@@ -130,34 +135,106 @@ function RecipeBook() {
     return (
       <div className="book-container">
         <div className="loading-screen">
-          <div className="loading-book">📚</div>
+          <div className="loading-book-pixel">
+            <div className="pixel-book-spine"></div>
+            <div className="pixel-book-cover"></div>
+            <div className="pixel-book-pages"></div>
+          </div>
           <p className="loading-text">Opening Recipe Book...</p>
         </div>
       </div>
     )
   }
 
-  // Closed book view
+  // Closed book view - Pixel Art Cookbook
   if (!bookOpen) {
     return (
       <div className="book-container">
-        <div className="closed-book" onClick={openBook}>
+        <div className={`closed-book ${isOpening ? 'opening' : ''}`} onClick={openBook}>
+          {/* Book Spine with green bookmark */}
           <div className="book-spine-closed">
-            <span className="spine-text">RECIPES</span>
+            <div className="spine-bookmark"></div>
+            <div className="spine-lines"></div>
           </div>
+
+          {/* Main Book Cover */}
           <div className="book-cover">
-            <div className="cover-decoration top-left"></div>
-            <div className="cover-decoration top-right"></div>
-            <div className="cover-decoration bottom-left"></div>
-            <div className="cover-decoration bottom-right"></div>
-            <div className="cover-content">
-              <div className="cover-emblem">📖</div>
-              <h1 className="cover-title">Recipe Book</h1>
-              <p className="cover-subtitle">A Collection of Fine Recipes</p>
-              <div className="cover-divider"></div>
-              <p className="recipe-count-cover">{allRecipes.length} Recipes</p>
+            {/* Page edges visible on right side */}
+            <div className="page-edges"></div>
+
+            {/* Inner aged paper panel */}
+            <div className="cover-inner-panel">
+              {/* Title */}
+              <div className="cover-title-section">
+                <h1 className="cover-title">COOK</h1>
+                <h1 className="cover-title">BOOK</h1>
+              </div>
+
+              {/* Center illustration */}
+              <div className="cover-illustration">
+                {/* Chef hat */}
+                <div className="chef-hat">
+                  <div className="hat-top"></div>
+                  <div className="hat-band"></div>
+                </div>
+
+                {/* Crossed utensils behind hat */}
+                <div className="utensils">
+                  <div className="wooden-spoon"></div>
+                  <div className="kitchen-knife"></div>
+                </div>
+
+                {/* Vegetables */}
+                <div className="vegetables">
+                  <div className="carrot carrot-1"></div>
+                  <div className="carrot carrot-2"></div>
+                  <div className="tomato"></div>
+                  <div className="basil basil-left"></div>
+                  <div className="basil basil-right"></div>
+                </div>
+              </div>
             </div>
+
+            {/* Bottom ribbon bookmark */}
+            <div className="bottom-ribbon"></div>
+
+            {/* Click hint */}
             <p className="click-hint">Click to Open</p>
+          </div>
+
+          {/* Flipping pages animation */}
+          <div className="flipping-pages">
+            <div className="flip-page flip-page-1"></div>
+            <div className="flip-page flip-page-2"></div>
+            <div className="flip-page flip-page-3"></div>
+            <div className="flip-page flip-page-4"></div>
+          </div>
+
+          {/* Recipe index page that appears as cover opens */}
+          <div className="recipe-index-preview">
+            <h2>Recipe Index</h2>
+            <div className="index-lines">
+              <div className="index-line">
+                <span className="index-dot"></span>
+                <span className="index-text"></span>
+              </div>
+              <div className="index-line">
+                <span className="index-dot"></span>
+                <span className="index-text"></span>
+              </div>
+              <div className="index-line">
+                <span className="index-dot"></span>
+                <span className="index-text"></span>
+              </div>
+              <div className="index-line">
+                <span className="index-dot"></span>
+                <span className="index-text"></span>
+              </div>
+              <div className="index-line">
+                <span className="index-dot"></span>
+                <span className="index-text"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -168,6 +245,14 @@ function RecipeBook() {
   return (
     <div className="book-container">
       <div className="open-book">
+        {/* Header Banner */}
+        <div className="book-header-banner">
+          <span className="banner-text">Recipes</span>
+        </div>
+
+        {/* Red Bookmark Ribbon */}
+        <div className="open-book-ribbon"></div>
+
         {/* Book Spine */}
         <div className="book-spine">
           <span>Recipe Book</span>
@@ -287,13 +372,19 @@ function RecipeBook() {
             <div className="page-content intro-page">
               <div className="book-illustration">
                 <div className="illustration-content">
-                  <div className="illustration-icon">🍳</div>
                   <div className="recipe-count">{allRecipes.length}</div>
                   <p className="recipe-count-label">Recipes</p>
                   <p className="intro-text">
                     Your personal recipe collection.
                     Browse through the index or use the filters to discover something new.
                   </p>
+                  {/* Colorful recipe lines */}
+                  <div className="recipe-lines">
+                    <div className="recipe-line"></div>
+                    <div className="recipe-line"></div>
+                    <div className="recipe-line"></div>
+                    <div className="recipe-line"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -334,7 +425,8 @@ function RecipeBook() {
             onClick={prevPage}
             disabled={currentPage === 0}
           >
-            ◀ Previous
+            <span className="pixel-arrow left"></span>
+            Previous
           </button>
 
           <button className="nav-btn index-btn" onClick={goToIndex}>
@@ -350,7 +442,8 @@ function RecipeBook() {
             onClick={nextPage}
             disabled={currentPage === 0 || currentPage >= recipes.length}
           >
-            Next ▶
+            Next
+            <span className="pixel-arrow right"></span>
           </button>
         </div>
       </div>

@@ -56,7 +56,23 @@ function initializeDatabase() {
           is_checked INTEGER DEFAULT 0,
           week_start_date TEXT
         )
-      `, (err) => {
+      `);
+
+      // Create users table for authentication
+      db.run(`
+        CREATE TABLE IF NOT EXISTS users (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          username TEXT UNIQUE NOT NULL,
+          password_hash TEXT NOT NULL,
+          created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+      `);
+
+      // Create indexes for better query performance
+      db.run(`CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_recipe_id ON recipe_ingredients(recipe_id)`);
+      db.run(`CREATE INDEX IF NOT EXISTS idx_meal_plan_week ON meal_plan(week_start_date)`);
+      db.run(`CREATE INDEX IF NOT EXISTS idx_meal_plan_recipe ON meal_plan(recipe_id)`);
+      db.run(`CREATE INDEX IF NOT EXISTS idx_grocery_list_week ON grocery_list(week_start_date)`, (err) => {
         if (err) {
           reject(err);
         } else {
