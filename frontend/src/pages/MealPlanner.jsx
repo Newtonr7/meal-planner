@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import MealPlanDay from '../components/MealPlanDay'
+import { API_URL } from '../config'
 import './MealPlanner.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const MEAL_TYPES = ['breakfast', 'lunch', 'dinner']

@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { API_URL } from '../config'
 import './AddRecipe.css'
 
-function AddRecipe() {
+function EditRecipe() {
+  const { id } = useParams()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
   const [recipe, setRecipe] = useState({
     name: '',
     meal_type: '',
@@ -18,6 +20,43 @@ function AddRecipe() {
   })
   const [ingredients, setIngredients] = useState([{ ingredient_name: '', quantity: '' }])
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    fetchRecipe()
+  }, [id])
+
+  const fetchRecipe = async () => {
+    try {
+      const response = await fetch(`${API_URL}/recipes/${id}`)
+      if (!response.ok) {
+        setError('Recipe not found')
+        setLoading(false)
+        return
+      }
+      const data = await response.json()
+      setRecipe({
+        name: data.name || '',
+        meal_type: data.meal_type || '',
+        cuisine: data.cuisine || '',
+        dish_type: data.dish_type || '',
+        protein_type: data.protein_type || '',
+        cooking_method: data.cooking_method || '',
+        cook_time: data.cook_time || '',
+        serving_size: data.serving_size || '',
+        instructions: data.instructions || ''
+      })
+      if (data.ingredients && data.ingredients.length > 0) {
+        setIngredients(data.ingredients.map(ing => ({
+          ingredient_name: ing.ingredient_name,
+          quantity: ing.quantity || ''
+        })))
+      }
+    } catch (err) {
+      setError('Failed to load recipe')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -52,8 +91,8 @@ function AddRecipe() {
     const validIngredients = ingredients.filter((ing) => ing.ingredient_name.trim())
 
     try {
-      const response = await fetch(`${API_URL}/recipes`, {
-        method: 'POST',
+      const response = await fetch(`${API_URL}/recipes/${id}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...recipe,
@@ -67,17 +106,45 @@ function AddRecipe() {
         navigate('/')
       } else {
         const data = await response.json()
-        setError(data.error || 'Failed to create recipe')
+        setError(data.error || 'Failed to update recipe')
       }
-    } catch (error) {
-      setError('Failed to create recipe')
+    } catch (err) {
+      setError('Failed to update recipe')
     }
+  }
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this recipe? This cannot be undone.')) {
+      return
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/recipes/${id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        navigate('/')
+      } else {
+        const data = await response.json()
+        setError(data.error || 'Failed to delete recipe')
+      }
+    } catch (err) {
+      setError('Failed to delete recipe')
+    }
+  }
+
+  if (loading) {
+    return <div className="add-recipe"><div className="loading">Loading recipe...</div></div>
   }
 
   return (
     <div className="add-recipe">
       <div className="add-recipe-form">
-        <h1>Add New Recipe</h1>
+        <div className="edit-header">
+          <h1>Edit Recipe</h1>
+          <Link to="/" className="back-link">Back to Recipes</Link>
+        </div>
 
         {error && <div className="error-message">{error}</div>}
 
@@ -223,11 +290,14 @@ function AddRecipe() {
           />
         </div>
 
-        <button type="submit" className="submit-btn">Create Recipe</button>
+        <div className="form-actions">
+          <button type="submit" className="submit-btn">Save Changes</button>
+          <button type="button" onClick={handleDelete} className="delete-btn">Delete Recipe</button>
+        </div>
         </form>
       </div>
     </div>
   )
 }
 
-export default AddRecipe
+export default EditRecipe

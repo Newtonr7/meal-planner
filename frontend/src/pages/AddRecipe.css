@@ -185,9 +185,43 @@
   background: rgba(30, 58, 95, 0.05);
 }
 
+/* Edit Header */
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #d4c4b0;
+}
+
+.edit-header h1 {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.back-link {
+  color: #1e3a5f;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 /* Submit Button */
 .submit-btn {
-  width: 100%;
+  flex: 2;
   padding: 1rem 1.5rem;
   background: #1e3a5f;
   color: #fff;
@@ -195,13 +229,37 @@
   font-family: 'Georgia', serif;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: 1rem;
   transition: all 0.2s;
   border-radius: 4px;
 }
 
 .submit-btn:hover {
   background: #152a47;
+}
+
+/* Delete Button */
+.delete-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: #c45c4a;
+  color: #fff;
+  border: none;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: #a34a3a;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  color: #3a2518;
 }
 
 /* Responsive */

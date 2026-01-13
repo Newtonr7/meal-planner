@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import GroceryItem from '../components/GroceryItem'
+import { API_URL } from '../config'
 import './GroceryList.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 function getWeekStart(date = new Date()) {
   const d = new Date(date)

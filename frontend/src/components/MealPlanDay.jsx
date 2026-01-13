@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API_URL } from '../config'
 import './MealPlanDay.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 function MealPlanDay({ day, mealType, meal, onRemove, weekStart, onMealAdded }) {
   const [showPicker, setShowPicker] = useState(false)

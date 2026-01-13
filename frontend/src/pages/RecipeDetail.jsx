@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { API_URL } from '../config'
 import './RecipeDetail.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 function RecipeDetail() {
   const { id } = useParams()
@@ -35,7 +34,10 @@ function RecipeDetail() {
 
   return (
     <div className="recipe-detail">
-      <Link to="/" className="back-link">Back to Recipes</Link>
+      <div className="recipe-header">
+        <Link to="/" className="back-link">Back to Recipes</Link>
+        <Link to={`/recipes/${id}/edit`} className="edit-link">Edit Recipe</Link>
+      </div>
 
       <h1>{recipe.name}</h1>
 

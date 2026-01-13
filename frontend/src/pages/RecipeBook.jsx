@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
+import { API_URL } from '../config'
 import './RecipeBook.css'
-
-const API_URL = 'http://localhost:3000/api'
 
 function RecipeBook() {
   const [recipes, setRecipes] = useState([])
